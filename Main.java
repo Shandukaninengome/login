@@ -1,64 +1,55 @@
+package account.creation;
 
-package loginapp;
-
-import loginapp.Login;
 import java.util.Scanner;
 
-
 public class Main {
-    
-    public static void main(String[] args){
-        
-         Scanner input=new Scanner(System.in);
-        Login user=new Login();
-        
-        System.out.println("Register your account");
-        
-        System.out.println("please enter your username");
-        String username=input.nextLine();
-        
-        System.out.println("please enter your password");
-        String password=input.nextLine();
-        
-        System.out.println("please enter your SA cellphone number");
-        String cellphone=input.nextLine();
-        
-        String results = user.userRegistration( username, password,cellphone);
-        System.out.println(results);
-        
-        System.out.println("Login");
-         
-        System.out.println("please enter your username");
-        String loginUser=input.nextLine();
-        
-        System.out.println("please enter your password");
-        String loginPass=input.nextLine();
-        
-        boolean login= user.loginUser(loginUser,loginPass);
-        
-        
-        
-        System.out.println(user.returnLoginStatus(login));
+
+    public static void main(String[] args) {
+
+        // Create Login object
+        Login login = new Login();
+
+        // Scanner for input
+        Scanner input = new Scanner(System.in);
+
+        // ================= REGISTER =================
+        System.out.println("=== User Registration ===");
+
+        System.out.print("Enter username: ");
+        String username = input.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = input.nextLine();
+
+        System.out.print("Enter cellphone number: ");
+        String number = input.nextLine();
+
+        // Register user
+        boolean registered = login.registerUser(username, password, number);
+
+        if (registered) {
+            System.out.println("Registration successful!");
+        } else {
+            System.out.println("Registration failed. Please check your details.");
+        }
+
+        // ================= LOGIN =================
+        System.out.println("\n=== Login ===");
+
+        System.out.print("Enter username: ");
+        String loginUser = input.nextLine();
+
+        System.out.print("Enter password: ");
+        String loginPass = input.nextLine();
+
+        boolean loggedIn = login.loginUser(loginUser, loginPass);
+
+        if (loggedIn) {
+            System.out.println("Welcome back! Login successful.");
+        } else {
+            System.out.println("Login failed. Username or password incorrect.");
+        }
     }
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
-    
+}
 
 
-    }
-   

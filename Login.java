@@ -1,78 +1,56 @@
+package account.creation;
 
-package loginapp;
-
-import java.util.Scanner; 
-
-public class Login{
+public class Login {
     
-   private String username;
-   private String password;
-   private String cellphone;
-    
-    //username
-    public boolean checkusername(String username){
-        return username.contains("_")&& username.length() <=5;
+    // Check username
+    public String checkUsername(String username) {
+        if (username.contains("_") && username.length() <= 5) {
+            return "Username successfully captured.";
+        } else {
+            return "Username is not correctly formatted.";
+        }
     }
-    
-    //password
-    public boolean checkpassword(String password){
-       boolean capital=false;
-       boolean number=false;
-       boolean special=false; 
-       
-               for (char c :password.toCharArray()){
-        
-            if (Character.isUpperCase(c)){capital=true;
-        }
-            if(Character.isDigit(c)){number=true;
-            }
-            if(!Character.isLetterOrDigit(c)){special=true;
-            }
-        
-    }
-        return password.length ()>=8 && capital && number && special;}
-    
-    //cellphonenumber
-    public boolean checkcellphonenumber(String cellphone){
-        return cellphone.startsWith("+27")&& cellphone.length()<=13; }
-    
-    //user registration
-    
-    public String userRegistration(String username, String password, String cellphone){
-        
-        if(!checkusername(username)){return "useranme must contain an underscore and be no more than 5 characters.";
-        }
-        
-        if(!checkpassword(password)){
-            return "password must contain 8 characters, a capital letter, a number and a special character.";
-        }
-        
-        if(!checkcellphonenumber(cellphone)){
-            return"Cellphone number must start with +27.";
-        }
 
-        this.username = username;
-        this.password = password;
-        this.cellphone = cellphone;
-        
-        return"Username successfully captured.User registerd successfully.";}
-        
-        //Loging user
-        public boolean loginUser(String username, String password){
-            return this.username.equals(username)&& this.password.equals(password);
+    // Check password
+    public String checkPasswordComplexity(String password) {
+        if (password.length() >= 8 &&
+            password.matches(".*[A-Z].*") &&
+            password.matches(".*[0-9].*") &&
+            password.matches(".*[@#$%^&+=!].*")) {
+
+            return "Password successfully captured.";
+        } else {
+            return "Password is not correctly formatted.";
         }
-        //Return login status
-        public String returnLoginStatus(boolean loginStatus){
-            
-            if(loginStatus){
-                return"Login successfull. Welcome!";
-            }else{
-                return"Login failed. Username or password is incorect.";
-            }
+    }
+
+    // Check cellphone number
+    public String checkCellPhoneNumber(String number) {
+        if (number.matches("^\\+27\\d{9}$")) {
+            return "Cellphone number successfully captured.";
+        } else {
+            return "Cellphone number is incorrect.";
         }
-            
+    }
+
+    // Register user (returns true/false)
+    public boolean registerUser(String username, String password, String number) {
+
+        boolean usernameOk = checkUsername(username).equals("Username successfully captured.");
+        boolean passwordOk = checkPasswordComplexity(password).equals("Password successfully captured.");
+        boolean phoneOk = checkCellPhoneNumber(number).equals("Cellphone number successfully captured.");
+
+        return usernameOk && passwordOk && phoneOk;
+    }
+
+    // Login user (returns true/false)
+    public boolean loginUser(String username, String password) {
+
+        // Simple login check (demo)
+        if (username.equals("ab_c") && password.equals("Pass@123")) {
+            return true;
+        } else {
+            return false;
         }
-                
-    
-    
-  
+    }
+}
