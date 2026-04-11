@@ -6,50 +6,43 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Create Login object
+        Scanner input = new Scanner(System.in);
         Login login = new Login();
 
-        // Scanner for input
-        Scanner input = new Scanner(System.in);
-
-        // ================= REGISTER =================
-        System.out.println("=== User Registration ===");
-
+        // REGISTRATION
         System.out.print("Enter username: ");
         String username = input.nextLine();
 
         System.out.print("Enter password: ");
         String password = input.nextLine();
 
-        System.out.print("Enter cellphone number: ");
+        System.out.print("Enter cellphone number (e.g. +27123456789): ");
         String number = input.nextLine();
 
-        // Register user
         boolean registered = login.registerUser(username, password, number);
 
         if (registered) {
             System.out.println("Registration successful!");
         } else {
             System.out.println("Registration failed. Please check your details.");
+            return;
         }
 
-        // ================= LOGIN =================
+        // LOGIN
         System.out.println("\n=== Login ===");
 
         System.out.print("Enter username: ");
-        String loginUser = input.nextLine();
+        String loginUsername = input.nextLine();
 
         System.out.print("Enter password: ");
-        String loginPass = input.nextLine();
+        String loginPassword = input.nextLine();
 
-        boolean loggedIn = login.loginUser(loginUser, loginPass);
+        boolean loggedIn = login.loginUser(loginUsername, loginPassword);
 
         if (loggedIn) {
-            System.out.println("Welcome back! Login successful.");
+            System.out.println("Login successful!");
         } else {
             System.out.println("Login failed. Username or password incorrect.");
         }
     }
 }
-
-

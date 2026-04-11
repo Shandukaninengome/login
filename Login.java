@@ -1,7 +1,11 @@
 package account.creation;
 
 public class Login {
-    
+
+    private String storedUsername;
+    private String storedPassword;
+    private String storedNumber;
+
     // Check username
     public String checkUsername(String username) {
         if (username.contains("_") && username.length() <= 5) {
@@ -12,45 +16,43 @@ public class Login {
     }
 
     // Check password
-    public String checkPasswordComplexity(String password) {
-        if (password.length() >= 8 &&
-            password.matches(".*[A-Z].*") &&
-            password.matches(".*[0-9].*") &&
-            password.matches(".*[@#$%^&+=!].*")) {
-
-            return "Password successfully captured.";
-        } else {
-            return "Password is not correctly formatted.";
-        }
+    public boolean checkPassword(String password) {
+        return password.length() >= 8 &&
+               password.matches(".*[A-Z].*") &&
+               password.matches(".*\\d.*");
     }
 
     // Check cellphone number
-    public String checkCellPhoneNumber(String number) {
-        if (number.matches("^\\+27\\d{9}$")) {
-            return "Cellphone number successfully captured.";
-        } else {
-            return "Cellphone number is incorrect.";
-        }
+    public boolean checkCellphoneNumber(String number) {
+        return number.startsWith("+27") && number.length() == 12;
     }
 
-    // Register user (returns true/false)
+    // Register user
     public boolean registerUser(String username, String password, String number) {
 
-        boolean usernameOk = checkUsername(username).equals("Username successfully captured.");
-        boolean passwordOk = checkPasswordComplexity(password).equals("Password successfully captured.");
-        boolean phoneOk = checkCellPhoneNumber(number).equals("Cellphone number successfully captured.");
-
-        return usernameOk && passwordOk && phoneOk;
-    }
-
-    // Login user (returns true/false)
-    public boolean loginUser(String username, String password) {
-
-        // Simple login check (demo)
-        if (username.equals("ab_c") && password.equals("Pass@123")) {
-            return true;
-        } else {
+        if (!checkUsername(username).equals("Username successfully captured.")) {
             return false;
         }
+
+        if (!checkPassword(password)) {
+            return false;
+        }
+
+        if (!checkCellphoneNumber(number)) {
+            return false;
+        }
+
+        // Store details
+        storedUsername = username;
+        storedPassword = password;
+        storedNumber = number;
+
+        return true;
+    }
+
+    // Login user
+    public boolean loginUser(String username, String password) {
+        return username.equals(storedUsername) &&
+               password.equals(storedPassword);
     }
 }
