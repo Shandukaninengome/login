@@ -22,7 +22,7 @@ public class Main {
         boolean registered = login.registerUser(username, password, number);
 
         if (registered) {
-            System.out.println("Registration successful!");
+            System.out.println("Registration successfull!");
         } else {
             System.out.println("Registration failed. Please check your details.");
             return;
